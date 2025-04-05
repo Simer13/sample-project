@@ -16,7 +16,7 @@ stages {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'Ravneet@17') {
                         dockerImage.push()
                     }
                 }
