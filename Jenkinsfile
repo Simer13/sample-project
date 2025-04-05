@@ -1,15 +1,11 @@
 pipeline {
     agent any
-stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/Simer13/sample-project.git'
-            }
-        }
+
+    stages {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("simer13/sample-app:latest")
+                    docker.build('sample-image')
                 }
             }
         }
@@ -17,14 +13,14 @@ stages {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'Ravneet@17') {
-                        dockerImage.push()
+                        docker.image('sample-image').push('latest')
                     }
                 }
             }
         }
         stage('Deploy to Kubernetes') {
             steps {
-                kubernetesDeploy configs: 'deployment.yaml', kubeconfigId: 'kubeconfig-id'
+                sh 'kubectl apply -f k8s/deployment.yaml'
             }
         }
     }
