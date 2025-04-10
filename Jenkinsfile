@@ -5,7 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('sample-image', 'app')
+                    docker.build('simer13/sample-image', 'app') // folder with Dockerfile
                 }
             }
         }
@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
-                        docker.image('sample-image').push('latest')
+                        docker.image('simer13/sample-image').push('latest')
                     }
                 }
             }
