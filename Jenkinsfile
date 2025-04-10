@@ -26,7 +26,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'kubectl apply -f k8s/deployment.yaml'
                     } else {
-                        bat 'kubectl apply -f k8s\\deployment.yaml'
+                        bat 'kubectl apply -f deployment.yaml'
                     }
                 }
             }
