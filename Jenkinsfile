@@ -6,11 +6,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'docker.build('sample-image', 'app')
- .'
+                        sh 'docker build -t sample-image .'
                     } else {
-                        bat 'docker.build('sample-image', 'app')
- .'
+                        bat 'docker build -t sample-image .'
                     }
                 }
             }
