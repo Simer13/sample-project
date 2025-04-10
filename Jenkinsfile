@@ -5,13 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    if (isUnix()) {
-                        sh 'docker.build('sample-image', 'app')
- .'
-                    } else {
-                        bat 'docker.build('sample-image', 'app')
- .'
-                    }
+                    docker.build('sample-image', 'app')
                 }
             }
         }
