@@ -5,7 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('simer13/sample-image', 'app') // folder with Dockerfile
+                    docker.build('simer13/sample-image', 'app') // Uses Dockerfile in app/
                 }
             }
         }
@@ -23,11 +23,10 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    if (isUnix()) {
-                        sh 'kubectl apply -f k8s/deployment.yaml'
-                    } else {
-                        bat 'kubectl apply -f deployment.yaml'
-                    }
+                    def kubeconfigPath = 'C:\\Users\\hp\\.kube\\config'
+                    def setKubeEnv = "set KUBECONFIG=${kubeconfigPath} && "
+
+                    bat "${setKubeEnv}kubectl apply -f deployment.yaml"
                 }
             }
         }
